@@ -2,6 +2,8 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    -webkit-user-select:none;
+    user-select: none;
 }
 
 /* body{
@@ -16,28 +18,6 @@
     background-color: rgb(234, 217, 217);
     padding: 20px;
     justify-content: space-evenly;
-}
-
-@media only screen and (width<=1100px){
-    .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-    }
-    .board{
-        background-color: rgb(69, 36, 3);
-        display: grid;
-        grid-template-columns: repeat(8,1fr);
-        grid-template-rows: repeat(8,1fr);
-        /* max-height: 100vh; */
-        /* min-height: 20vh; */
-        min-width: 30vh;
-        overflow-y:scroll;
-        /* max-height: 80vh; */
-        padding: none;
-        border-radius: 1.3rem;
-        overflow: scroll;
-    }
 }
 
 
@@ -197,8 +177,36 @@ div{
     cursor: pointer;
 }
 
+@media only screen and (width<=1100px){
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .board{
+        background-color: rgb(69, 36, 3);
+        display: grid;
+        grid-template-columns: repeat(8,1fr);
+        grid-template-rows: repeat(8,1fr);
+        /* max-height: 100vh; */
+        /* min-height: 20vh; */
+        min-width: 30vh;
+        overflow-y:scroll;
+        /* max-height: 80vh; */
+        padding: none;
+        border-radius: 1.3rem;
+        overflow: scroll;
+    }
+}
+
 @media only screen and (width<=665px){
-    
+    h1{
+        padding: 20px;
+        font-size: 3rem;
+    }
+    .whoseturn,.whose-choosed{
+        font-size: 2rem;
+    }
     .board{
         min-height: 20vh;
         min-width: 680;
@@ -212,7 +220,7 @@ div{
     }
     
     .Bknight{
-        width:2.5rem;
+        width:3rem;
     }
     
     .Wknight,.Wbishop,.Bqueen{
@@ -230,7 +238,14 @@ div{
     }
 }
 @media only screen and (width<480px){
-    
+
+    h1{
+        padding: 20px;
+        font-size: 3rem;
+    }
+    .whoseturn,.whose-choosed{
+        font-size: 1.5rem;
+    }
     .board{
         min-height: 20vh;
         min-width: 680;
@@ -244,7 +259,7 @@ div{
     }
     
     .Bknight{
-        width:1.8rem;
+        width: 2.1rem;
     }
     
     .Wknight,.Wbishop,.Bqueen{
