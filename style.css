@@ -6,13 +6,6 @@
     user-select: none;
 }
 
-/* body{
-    display: grid;
-    grid-template-columns: repeat(20,1fr);
-    background-color: rgb(234, 217, 217);
-    padding-top: 30px;
-} */
-
 .container{
     display: flex;
     background-color: rgb(234, 217, 217);
@@ -188,11 +181,8 @@ div{
         display: grid;
         grid-template-columns: repeat(8,1fr);
         grid-template-rows: repeat(8,1fr);
-        /* max-height: 100vh; */
-        /* min-height: 20vh; */
         min-width: 30vh;
         overflow-y:scroll;
-        /* max-height: 80vh; */
         padding: none;
         border-radius: 1.3rem;
         overflow: scroll;
