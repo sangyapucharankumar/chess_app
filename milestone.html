@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chess game by charan</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="shortcut icon" href="./chessSetIcons/chessboard.png" type="image/x-icon"> -->
+    <link rel="shortcut icon" href="./new icons/chessBoard2.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard">
+            <h1><img class="greet" src="./chessSetIcons/chessboard.png" alt="">welcome to chess!</h1>
+            <h2 class="whoseturn">white's turn!</h2>
+            <img class="whiteturn turn" src="./icons/whiteTurn.png" alt="">
+            <img class="whiteturn turn" src="./icons/blackTurn.png" alt="">
+            <img class="whiteturn turn" src="./icons/crown.png" alt="">
+            <div class="chooseBox">
+                <h2 class="whoseturn">choose the piece</h2>
+                <img class="chooseTurn choosed-white" src="./icons/chooseWhite.png" alt="">
+                <img class="chooseTurn choosed-black" src="./icons/chooseBlack.png" alt="">
+            </div>
+        </div>
+        <div class="board">
+            <div id="11" class="box corner1"><img class="black Brook piece" data-indx="11" src="./chessSetIcons/Brook.png" alt="">11</div>
+            <div id="12" class="box"><img class="black Bknight piece" data-indx="12" src="./chessSetIcons/Bknight.png" alt="">12</div>
+            <div id="13" class="box"><img class="black Bbishop piece" data-indx="13" src="./chessSetIcons/Bbishop.png" alt="">13</div>
+            <div id="14" class="box"><img class="black Bqueen piece" data-indx="14" src="./chessSetIcons/Bqueen.png" alt="">14</div>
+            <div id="15" class="box"><img class="black Bking piece" data-indx="15" src="./chessSetIcons/Bking.png" alt="">15</div>
+            <div id="16" class="box"><img class="black Bbishop piece" data-indx="16" src="./chessSetIcons/Bbishop.png" alt="">16</div>
+            <div id="17" class="box"><img class="black Bknight piece" data-indx="17" src="./chessSetIcons/Bknight.png" alt="">17</div>
+            <div id="18" class="box corner2"><img class="black Brook piece" data-indx="18" src="./chessSetIcons/Brook.png" alt="">18</div>
+            <div id="21" class="box"><img class="black Bpawn piece" data-indx="21" src="./chessSetIcons/Bpawn.png" alt="">21</div>
+            <div id="22" class="box"><img class="black Bpawn piece" data-indx="22" src="./chessSetIcons/Bpawn.png" alt="">22</div>
+            <div id="23" class="box"><img class="black Bpawn piece" data-indx="23" src="./chessSetIcons/Bpawn.png" alt="">23</div>
+            <div id="24" class="box"><img class="black Bpawn piece" data-indx="24" src="./chessSetIcons/Bpawn.png" alt="">24</div>
+            <div id="25" class="box"><img class="black Bpawn piece" data-indx="25" src="./chessSetIcons/Bpawn.png" alt="">25</div>
+            <div id="26" class="box"><img class="black Bpawn piece" data-indx="26" src="./chessSetIcons/Bpawn.png" alt="">26</div>
+            <div id="27" class="box"><img class="black Bpawn piece" data-indx="27" src="./chessSetIcons/Bpawn.png" alt="">27</div>
+            <div id="28" class="box"><img class="black Bpawn piece" data-indx="28" src="./chessSetIcons/Bpawn.png" alt="">28</div>
+            <div id="31" class="box">31</div>
+            <div id="32" class="box">32</div>
+            <div id="33" class="box">33</div>
+            <div id="34" class="box">34</div>
+            <div id="35" class="box">35</div>
+            <div id="36" class="box">36</div>
+            <div id="37" class="box">37</div>
+            <div id="38" class="box">38</div>
+            <div id="41" class="box">41</div>
+            <div id="42" class="box">42</div>
+            <div id="43" class="box">43</div>
+            <div id="44" class="box">44</div>
+            <div id="45" class="box">45</div>
+            <div id="46" class="box">46</div>
+            <div id="47" class="box">47</div>
+            <div id="48" class="box">48</div>
+            <div id="51" class="box">51</div>
+            <div id="52" class="box">52</div>
+            <div id="53" class="box">53</div>
+            <div id="54" class="box">54</div>
+            <div id="55" class="box">55</div>
+            <div id="56" class="box">56</div>
+            <div id="57" class="box">57</div>
+            <div id="58" class="box">58</div>
+            <div id="61" class="box">61</div>
+            <div id="62" class="box">62</div>
+            <div id="63" class="box">63</div>
+            <div id="64" class="box">64</div>
+            <div id="65" class="box">65</div>
+            <div id="66" class="box">66</div>
+            <div id="67" class="box">67</div>
+            <div id="68" class="box">68</div>
+            <div id="71" class="box"><img class="white Wpawn piece" data-indx="71" src="./chessSetIcons/Wpawn.png" alt="">71</div>
+            <div id="72" class="box"><img class="white Wpawn piece" data-indx="72" src="./chessSetIcons/Wpawn.png" alt="">72</div>
+            <div id="73" class="box"><img class="white Wpawn piece" data-indx="73" src="./chessSetIcons/Wpawn.png" alt="">73</div>
+            <div id="74" class="box"><img class="white Wpawn piece" data-indx="74" src="./chessSetIcons/Wpawn.png" alt="">74</div>
+            <div id="75" class="box"><img class="white Wpawn piece" data-indx="75" src="./chessSetIcons/Wpawn.png" alt="">75</div>
+            <div id="76" class="box"><img class="white Wpawn piece" data-indx="76" src="./chessSetIcons/Wpawn.png" alt="">76</div>
+            <div id="77" class="box"><img class="white Wpawn piece" data-indx="77" src="./chessSetIcons/Wpawn.png" alt="">77</div>
+            <div id="78" class="box"><img class="white Wpawn piece" data-indx="78" src="./chessSetIcons/Wpawn.png" alt="">78</div>
+            <div id="81" class="box corner3"><img class="white Wrook piece" data-indx="81" src="./chessSetIcons/Wrook.png" alt="">81</div>
+            <div id="82" class="box"><img class="white Wknight piece" data-indx="82" src="./chessSetIcons/Wknight.png" alt="">82</div>
+            <div id="83" class="box"><img class="white Wbishop piece" data-indx="83" src="./chessSetIcons/Wbishop.png" alt="">83</div>
+            <div id="84" class="box"><img class="white Wqueen piece" data-indx="84" src="./chessSetIcons/Wqueen.png" alt="">84</div>
+            <div id="85" class="box"><img class="white Wking piece" data-indx="85" src="./chessSetIcons/Wking.png" alt="">85</div>
+            <div id="86" class="box"><img class="white Wbishop piece" data-indx="86" src="./chessSetIcons/Wbishop.png" alt="">86</div>
+            <div id="87" class="box"><img class="white Wknight piece" data-indx="87" src="./chessSetIcons/Wknight.png" alt="">87</div>
+            <div id="88" class="box corner4"><img class="white Wrook piece" data-indx="88" src="./chessSetIcons/Wrook.png" alt="">88</div>
+            
+        </div>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>

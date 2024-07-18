@@ -1,0 +1,266 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+/* body{
+    display: grid;
+    grid-template-columns: repeat(20,1fr);
+    background-color: rgb(234, 217, 217);
+    padding-top: 30px;
+} */
+
+.container{
+    display: flex;
+    background-color: rgb(234, 217, 217);
+    padding: 20px;
+    justify-content: space-evenly;
+}
+
+@media only screen and (width<=1100px){
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .board{
+        background-color: rgb(69, 36, 3);
+        display: grid;
+        grid-template-columns: repeat(8,1fr);
+        grid-template-rows: repeat(8,1fr);
+        /* max-height: 100vh; */
+        /* min-height: 20vh; */
+        min-width: 30vh;
+        overflow-y:scroll;
+        /* max-height: 80vh; */
+        padding: none;
+        border-radius: 1.3rem;
+        overflow: scroll;
+    }
+}
+
+
+.corner1{
+    border-top-left-radius: 0.7rem;
+}
+.corner2{
+    border-top-right-radius: 0.7rem;
+}
+.corner3{
+    border-bottom-left-radius: 0.7rem;
+}
+.corner4{
+    border-bottom-right-radius: 0.7rem;
+}
+
+.box{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: aliceblue;
+    font-size: 0px;
+}
+
+h1{
+    padding: 20px;
+    font-size: 4rem;
+}
+.greet{
+    margin-right: 0.4rem;
+    width: 4rem;
+    vertical-align:sub;
+    
+}
+.whoseturn{
+    display: block;
+    font-size: 2rem;
+    color: blueviolet;
+}
+.whose-choosed{
+    font-size: 2rem;
+    color: blueviolet;
+}
+
+.message-box{
+    display: flex;
+}
+
+div{
+    text-align: center;
+    position: relative;
+}
+
+.start{
+    display: flex;
+    margin-top: 20px;
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: aliceblue;
+    border: 10px;
+    border-radius: 0.7rem;
+    min-width: 15vw;
+}
+
+.board{
+    background-color: rgb(69, 36, 3);
+    display: grid;
+    grid-template-columns: repeat(8,1fr);
+    grid-template-rows: repeat(8,1fr);
+    margin-left: 1vw;
+    /* max-height: 95vh; */
+    min-height: 35vh;
+    min-width: 60vw;
+    /* max-width: 70vw; */
+    padding: 2vw;
+    border-radius: 1.3rem;
+}
+.chooseTurn{
+    width: 10rem;
+    border: 0.7rem solid rgb(65, 36, 36);
+    border-radius: 1.5rem;
+    margin: 10px;
+}
+.chooseBox{
+    justify-self: flex-end;
+}
+.turn,.icon{
+    width:5.3rem;
+}
+.trophy{
+    width: 8rem;
+}
+.arrow{
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+.white-won,.black-won,.start-img{
+    width: 8rem;
+    padding-bottom: 5px;
+}
+.won-message-img{
+    height: 3rem;
+    /* vertical-align: text-top; */
+    /* vertical-align:baseline; */
+    /* vertical-align: bottom; */
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.fight{
+    width: 6rem;
+}
+
+
+.white-square{
+    background-color: rgb(233, 202, 109);
+}
+
+.black-square{
+    background-color: rgb(165, 79, 42);
+}
+
+.Wrook,.Bbishop,.Brook,.Wking,.Bking{
+    width: 3.7rem;
+    cursor: pointer;
+}
+.Wpawn,.Bpawn{
+    width: 3.5rem;
+    cursor: pointer;
+}
+
+.Bknight{
+    width:4.5rem;
+    cursor: pointer;
+}
+
+.Wknight,.Wbishop,.Bqueen{
+    width: 4.2rem;
+    cursor: pointer;
+}
+
+.Wqueen{
+    width: 4.5rem;
+    cursor: pointer;
+}
+
+
+.clicked{
+    background-color: chartreuse;
+    cursor: pointer;
+}
+
+@media only screen and (width<=665px){
+    
+    .board{
+        min-height: 20vh;
+        min-width: 680;
+        overflow:auto;
+    }
+    .Wrook,.Bbishop,.Brook,.Wking,.Bking{
+        width: 2.5rem;
+    }
+    .Wpawn,.Bpawn{
+        width: 2.5rem;
+    }
+    
+    .Bknight{
+        width:2.5rem;
+    }
+    
+    .Wknight,.Wbishop,.Bqueen{
+        width: 2.5rem;
+    }
+    
+    .Wqueen{
+        width: 2.5rem;
+    }
+    .chooseTurn{
+        width: 7rem;
+        border: 0.5rem solid rgb(65, 36, 36);
+        border-radius: 1rem;
+        margin: 10px;
+    }
+}
+@media only screen and (width<480px){
+    
+    .board{
+        min-height: 20vh;
+        min-width: 680;
+        overflow:auto;
+    }
+    .Wrook,.Bbishop,.Brook,.Wking,.Bking{
+        width: 1.8rem;
+    }
+    .Wpawn,.Bpawn{
+        width: 1.8rem;
+    }
+    
+    .Bknight{
+        width:1.8rem;
+    }
+    
+    .Wknight,.Wbishop,.Bqueen{
+        width: 1.8rem;
+    }
+    
+    .Wqueen{
+        width: 1.8rem;
+    }
+    .chooseTurn{
+        width: 5.5rem;
+    }
+    .fight{
+        width: 3.5rem;
+    }
+    .start-img{
+        width:6rem;
+    }
+}
