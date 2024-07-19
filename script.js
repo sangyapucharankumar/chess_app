@@ -1572,10 +1572,10 @@ function whitesTurn(){
 
 function blacksTurn(){
     
-    turn.innerHTML="Black's turn";
+    turn.innerHTML="Blacks turn";
     blackTurnImg.style.display="block";
     whiteTurnImg.style.display="none";
-    console.log("Blacks's turn");
+    console.log("Blacks turn");
     if(alternate!=0){
         console.log("blacks turn,whites click is removed");
         Wpawns.forEach((Wpawn)=>{
