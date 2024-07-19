@@ -60,6 +60,7 @@ review.addEventListener("click",()=>{
         }else if(turn.innerHTML==="Blacks turn"){
             blacksTurn();
         }
+        restore()
         arrow.style.display="none";
         review.style.backgroundColor = "rgb(213, 35, 100)";
         review.innerHTML="Review Game";
