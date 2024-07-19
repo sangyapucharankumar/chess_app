@@ -24,25 +24,60 @@ let choosedBlackImg = document.querySelector(".choosed-black");
 let whiteWon = document.querySelector(".white-won");
 let blackWon = document.querySelector(".black-won");
 let won = document.querySelectorAll(".won");
+let undo = document.querySelector("#undo");
+let redo = document.querySelector("#redo");
+let resetToInitial = document.querySelector("#reset-to-initial");
+let saveGame = document.querySelector("#save");
+let review = document.querySelector("#review");
+let arrow = document.querySelector("#arrow");
 
 whiteTurnImg.style.display="none";
 blackTurnImg.style.display="none";
 whiteWon.style.display="none";
 blackWon.style.display="none";
+saveGame.style.display="none";
+arrow.style.display="none";
 won.forEach((img)=>{
     img.style.display="none";
 })
 
+let toggle = 0;
+
+review.addEventListener("click",()=>{
+    if(toggle===0){
+        if(turn.innerHTML==="Whites turn"){
+            removeWhiteLis();
+        }else if(turn.innerHTML==="Blacks turn"){
+            removeBlackLis();
+        }
+        arrow.style.display="flex";
+        review.style.backgroundColor="red";
+        review.innerHTML="Continue To Game";
+        toggle++;
+    }else{
+        if(turn.innerHTML==="Whites turn"){
+            whitesTurn();
+        }else if(turn.innerHTML==="Blacks turn"){
+            blacksTurn();
+        }
+        arrow.style.display="none";
+        review.style.backgroundColor = "rgb(213, 35, 100)";
+        review.innerHTML="Review Game";
+        toggle--;
+    }
+})
 
 let whiteStack=[];
 let blackStack=[];
 let gameStack=[];
+let nthMoveBack=0;
 
-function PieceToFrom(Piece,PtoIndx,PfromIndx,RepCoin) {
+function PieceToFrom(Piece,PtoIndx,PfromIndx,RepCoin,isEnpasant=false) {
     this.Piece=Piece;
     this.PfromIndx=PfromIndx;
     this.PtoIndx=PtoIndx;
     this.RepCoin=RepCoin;
+    this.isEnpasant=isEnpasant;
 };
 
 let wfun = () =>{
@@ -100,6 +135,7 @@ function replace(img,indx,Pfrom) {
         won.forEach((img)=>{
             img.style.display="block";
         })
+        saveGame.style.display="inline-block";
         whiteTurnImg.style.display="none";
         blackTurnImg.style.display="none";
         return;
@@ -110,6 +146,7 @@ function replace(img,indx,Pfrom) {
         won.forEach((img)=>{
             img.style.display="block";
         })
+        saveGame.style.display="inline-block";
         whiteTurnImg.style.display="none";
         blackTurnImg.style.display="none";
         return;
@@ -1622,6 +1659,8 @@ function placePieceAtChoosenBox(coin,Pfrom){
 
     let fun = (cbox)=>{
         let RepCoin;
+        let enPiece = document.getElementsByClassName("enpasant").item(0);
+
         if(cbox.classList.contains("choosed")&&(String(cbox.childNodes[0])=="[object Text]")){
 
             RepCoin=cbox.innerText;
@@ -1632,10 +1671,9 @@ function placePieceAtChoosenBox(coin,Pfrom){
             console.log(cbox.innerHTML);
             console.log(`piece ${coin} is placed in the box ${cbox.id}`);
             document.getElementById(Pfrom).innerHTML=Pfrom;
-            let enPiece = document.getElementsByClassName("enpasant").item(0);
             console.log("enpasant piece is ",enPiece);
             if(enPiece){enPiece.innerHTML=enPiece.id;}
-            removeEnpasant()
+
         }
         else if(cbox.classList.contains("choosed")&&(String(cbox.childNodes[0])=="[object HTMLImageElement]")&&(coin.slice(0,1)=="W")&&(cbox.childNodes[0].classList.contains("black"))){
 
@@ -1667,8 +1705,16 @@ function placePieceAtChoosenBox(coin,Pfrom){
         resetClicked();
 
         if(coin.slice(0,1)=="W"){
-            whiteStack.push(new PieceToFrom(coin,cbox.id,Pfrom,RepCoin));
-            gameStack.push(new PieceToFrom(coin,cbox.id,Pfrom,RepCoin));
+
+            if(enPiece){
+                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                removeEnpasant();
+            }else{
+                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+            }
+
             // console.log("check if white king checked after whites turn",checkIfWhiteIschecked("white"));
             if(checkIfWhiteIschecked("white")){
                 console.log("switched again to whites turn because of check to your white king");
@@ -1681,8 +1727,16 @@ function placePieceAtChoosenBox(coin,Pfrom){
             }
         }
         else if(coin.slice(0,1)=="B"){
-            blackStack.push(new PieceToFrom(coin,cbox.id,Pfrom,RepCoin));
-            gameStack.push(new PieceToFrom(coin,cbox.id,Pfrom,RepCoin));
+
+            if(enPiece){
+                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                removeEnpasant();
+            }else{
+                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+            }
+
             // console.log("check if black king checked after blacks turn",checkIfBlackIschecked("black"));
             if(checkIfBlackIschecked("black")){
                 console.log("switched again to blacks turn because of check to your black king");
@@ -1827,23 +1881,117 @@ function revert(stack) {
     LastBoxfromIndx.innerHTML=replace(lastP["Piece"],lastP["PfromIndx"],lastP["PtoIndx"]);
     LastBoxtoIndx.innerHTML=replace(lastP["RepCoin"],lastP["PtoIndx"],lastP["PtoIndx"]);
     // Lbox.innerHTML=replace(lastP["Piece"],lastP["PfromIndx"],lastP["PtoIndx"]);
+
+    if(lastP["isEnpasant"]){
+        let row = Math.floor(Number(lastP["PtoIndx"])/10);
+        let col = Number(lastP["PtoIndx"])%10;
+
+        if(lastP["Piece"].slice(0,1)=="W"){
+            let repBox = document.getElementById(`${row+1}${col}`)
+            repBox.innerHTML=replace("Bpawn",`${row+1}${col}`,`${row+1}${col}`)
+        }else{
+            let repBox = document.getElementById(`${row-1}${col}`)
+            repBox.innerHTML=replace("Bpawn",`${row-1}${col}`,`${row-1}${col}`)
+
+        }
+    }
     resetChoosed();
     resetClicked();
 }
 
 
-function revertMove(){
-    
-    let lastP=gameStack.pop();
+function restore(){
+    for (let i=nthMoveBack;i>=0;i--) {
+        move(i)
+    }
+}
+
+undo.addEventListener("click",()=>{revertMove(nthMoveBack)})
+redo.addEventListener("click",()=>{move(nthMoveBack)})
+resetToInitial.addEventListener("click",restore)
+
+function revertMove(n){
+    console.log("nth move is",n)
+    if((gameStack.length-1-n)<0){
+        console.log("you have exceeded the moves")
+        console.log("you are back by moves",nthMoveBack);
+        return;
+    }
+    console.log("reverting",nthMoveBack,"th move");
+
+    let lastP=gameStack.at(gameStack.length-1-n);
     console.log("the lastP is",lastP);
-    console.log("stack after poping is ",gameStack);
+    console.log("game before N moves is ",gameStack);
     let LastBoxfromIndx=document.getElementById(lastP["PfromIndx"]);
     let LastBoxtoIndx=document.getElementById(lastP["PtoIndx"]);
     console.log(LastBoxfromIndx);
     console.log(LastBoxtoIndx);
     LastBoxfromIndx.innerHTML=replace(lastP["Piece"],lastP["PfromIndx"],lastP["PtoIndx"]);
     LastBoxtoIndx.innerHTML=replace(lastP["RepCoin"],lastP["PtoIndx"],lastP["PtoIndx"]);
+    if(lastP["isEnpasant"]){
+        let row = Math.floor(Number(lastP["PtoIndx"])/10);
+        let col = Number(lastP["PtoIndx"])%10;
+
+        if(lastP["Piece"].slice(0,1)=="W"){
+            let repBox = document.getElementById(`${row+1}${col}`)
+            repBox.innerHTML=replace("Bpawn",`${row+1}${col}`,`${row+1}${col}`)
+        }else{
+            let repBox = document.getElementById(`${row-1}${col}`)
+            repBox.innerHTML=replace("Bpawn",`${row-1}${col}`,`${row-1}${col}`)
+
+        }
+
+    }
     // Lbox.innerHTML=replace(lastP["Piece"],lastP["PfromIndx"],lastP["PtoIndx"]);
+    if(nthMoveBack<gameStack.length-1){
+        nthMoveBack++;
+    }
+    resetChoosed();
+    resetClicked();
+}
+
+function move(n){
+    console.log("nth move is",n)
+    if (n<0) {
+      console.log("you have exceeded or reached to current/end move",nthMoveBack++);
+      return;
+    }
+    let lastP=gameStack.at(gameStack.length-1-n);
+
+    console.log(lastP);
+
+    if (typeof lastP === "undefined") {
+      console.log("not moved yet");
+      return;
+    }
+    console.log("reverting",nthMoveBack,"th move");
+
+    console.log("the lastP is",lastP);
+    console.log("game in Nth move",gameStack);
+    let LastBoxfromIndx=document.getElementById(lastP["PfromIndx"]);
+    let LastBoxtoIndx=document.getElementById(lastP["PtoIndx"]);
+    console.log(LastBoxfromIndx.id);
+    console.log(LastBoxtoIndx.id);
+    LastBoxtoIndx.innerHTML=replace(lastP["Piece"],lastP["PtoIndx"],lastP["PfromIndx"]);
+    LastBoxfromIndx.innerHTML=replace(lastP["PfromIndx"],lastP["PfromIndx"],lastP["PfromIndx"],);
+
+    if(lastP["isEnpasant"]){
+        let row = Math.floor(Number(lastP["PtoIndx"])/10);
+        let col = Number(lastP["PtoIndx"])%10;
+
+        if(lastP["Piece"].slice(0,1)=="W"){
+            let repBox = document.getElementById(`${row+1}${col}`)
+            repBox.innerHTML=replace(`${row+1}${col}`,`${row+1}${col}`,`${row+1}${col}`)
+        }else{
+            let repBox = document.getElementById(`${row-1}${col}`)
+            repBox.innerHTML=replace(`${row-1}${col}`,`${row-1}${col}`,`${row-1}${col}`)
+        }
+    }
+
+    if (nthMoveBack > 0) {
+        nthMoveBack--;
+        console.log("you are",nthMoveBack,"from current pos");
+    }
     resetChoosed();
     resetClicked();
 }

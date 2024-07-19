@@ -98,6 +98,7 @@ div{
     border: 0.7rem solid rgb(65, 36, 36);
     border-radius: 1.5rem;
     margin: 10px;
+    cursor: pointer;
 }
 .chooseBox{
     justify-self: flex-end;
@@ -108,10 +109,17 @@ div{
 .trophy{
     width: 8rem;
 }
-.arrow{
+#arrow{
     display: flex;
-    justify-content: space-between;
-    width: 300px;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+#btn-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content:center;
 }
 .white-won,.black-won,.start-img{
     width: 8rem;
@@ -168,6 +176,31 @@ div{
     background-color: chartreuse;
     cursor: pointer;
 }
+#undo,#redo{
+    width: 100px;
+}
+#reset-to-initial{
+    height: 70px;
+}
+#review{
+    padding: 0.6rem 0.9rem;
+    color: white;
+    border: none;
+    border-radius: 0.7rem;
+    background-color: rgb(213, 35, 100);
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+    cursor:pointer;
+}
+#save{
+    padding: 0.6rem 0.9rem;
+    color: white;
+    border: none;
+    border-radius: 0.7rem;
+    background-color: rgb(6, 155, 6);
+    margin-bottom: 0.5rem;
+    cursor:pointer;
+}
 
 @media only screen and (width<=1100px){
     .container{
@@ -189,6 +222,12 @@ div{
 }
 
 @media only screen and (width<=665px){
+    #undo,#redo{
+        width: 90px;;
+    }
+    #reset-to-initial{
+        height: 65px;
+    }
     h1{
         padding: 20px;
         font-size: 3rem;
@@ -227,7 +266,12 @@ div{
     }
 }
 @media only screen and (width<480px){
-
+    #undo,#redo{
+        width: 80px;;
+    }
+    #reset-to-initial{
+        height: 55px;
+    }
     h1{
         padding: 20px;
         font-size: 3rem;
