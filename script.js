@@ -73,11 +73,12 @@ let blackStack=[];
 let gameStack=[];
 let nthMoveBack=0;
 
-function PieceToFrom(Piece,PtoIndx,PfromIndx,RepCoin,isEnpasant=false) {
+function PieceToFrom(Piece,PtoIndx,PfromIndx,RepCoin,RepBy,isEnpasant=false) {
     this.Piece=Piece;
     this.PfromIndx=PfromIndx;
     this.PtoIndx=PtoIndx;
     this.RepCoin=RepCoin;
+    this.RepBy=RepBy;
     this.isEnpasant=isEnpasant;
 };
 
@@ -167,7 +168,16 @@ function replace(img,indx,Pfrom) {
     let imgBking = `<img class="black Bking piece" data-indx="${indx}" src="./chessSetIcons/Bking.png" alt="">${indx}`;
 
     if((img=="Wpawn")&&(indx.slice(0,1)=="1")){
-        let choosedPiece=prompt("choose which piece to replace!")
+
+        let choosedPiece;
+        if(review.innerHTML==="Continue To Game"){
+            choosedPiece=gameStack[gameStack.length-1-nthMoveBack].RepBy;
+            choosedPiece=choosedPiece.slice(1,choosedPiece.length);
+            console.log(choosedPiece)
+            console.log(gameStack)
+        }else{
+            choosedPiece=prompt("choose which piece to replace!")
+        }
 
         if(choosedPiece=="queen"){
             return imgWqueen;
@@ -184,7 +194,16 @@ function replace(img,indx,Pfrom) {
     }
 
     if((img=="Bpawn")&&(indx.slice(0,1)=="8")){
-        let choosedPiece=prompt("choose which piece to replace!")
+        
+        let choosedPiece;
+        if(review.innerHTML==="Continue To Game"){
+            choosedPiece=gameStack[gameStack.length-1-nthMoveBack].RepBy;
+            choosedPiece = choosedPiece.slice(1, choosedPiece.length);
+            console.log(gameStack)
+            console.log(choosedPiece)
+        }else{
+            choosedPiece=prompt("choose which piece to replace!")
+        }
 
         if(choosedPiece=="queen"){
             return imgBqueen;
@@ -1702,18 +1721,16 @@ function placePieceAtChoosenBox(coin,Pfrom){
             console.log(`piece ${coin} is placed in the box ${cbox.id}`);
             document.getElementById(Pfrom).innerHTML=Pfrom;
         }
-        resetChoosed();
-        resetClicked();
 
         if(coin.slice(0,1)=="W"){
 
             if(enPiece){
-                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
-                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin ,cbox.childNodes[0].classList[1],true));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1],true));
                 removeEnpasant();
             }else{
-                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
-                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+                whiteStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1]));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1]));
             }
 
             // console.log("check if white king checked after whites turn",checkIfWhiteIschecked("white"));
@@ -1730,12 +1747,12 @@ function placePieceAtChoosenBox(coin,Pfrom){
         else if(coin.slice(0,1)=="B"){
 
             if(enPiece){
-                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
-                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,true));
+                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1],true));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1],true));
                 removeEnpasant();
             }else{
-                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
-                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin));
+                blackStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1]));
+                gameStack.push(new PieceToFrom(coin, cbox.id, Pfrom, RepCoin,cbox.childNodes[0].classList[1]));
             }
 
             // console.log("check if black king checked after blacks turn",checkIfBlackIschecked("black"));
@@ -1750,6 +1767,10 @@ function placePieceAtChoosenBox(coin,Pfrom){
                 whitesTurn();
             }
         }
+
+        resetChoosed();
+        resetClicked();
+
     }
 
     boxes.forEach(box=>{
